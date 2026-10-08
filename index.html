@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Fine Calculator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f6ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1d4ed8;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #1d4ed8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #153eaa;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef4ff;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .fine {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+
+        .rules {
+            margin-top: 25px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .rules h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        .rules p {
+            margin: 7px 0;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📚 Library Fine Calculator</h1>
+
+    <p class="subtitle">
+        Calculate your library fine easily
+    </p>
+
+    <label for="days">Enter Number of Late Days:</label>
+
+    <input type="number" id="days" min="0" placeholder="Enter late days">
+
+    <button onclick="calculateFine()">
+        Calculate Fine
+    </button>
+
+    <div class="result" id="result">
+        <p>Total Library Fine:</p>
+        <div class="fine" id="fine">₹0</div>
+    </div>
+
+    <div class="rules">
+        <h3>Fine Rules</h3>
+
+        <p>0 days → ₹0</p>
+        <p>1–5 days → ₹2 per day</p>
+        <p>6–10 days → ₹3 per day</p>
+        <p>11–20 days → ₹5 per day</p>
+        <p>Above 20 days → ₹10 per day</p>
+    </div>
+
+    <div class="footer">
+        Mini Project | Library Fine Calculator
+    </div>
+
+</div>
+
+<script>
+
+function calculateFine() {
+
+    let days = document.getElementById("days").value;
+    let fine = 0;
+
+    if (days === "") {
+        alert("Please enter the number of late days.");
+        return;
+    }
+
+    days = Number(days);
+
+    if (days < 0) {
+        alert("Please enter a valid number.");
+        return;
+    }
+
+    // Fine calculation according to project rules
+
+    if (days <= 0) {
+        fine = 0;
+    }
+
+    else if (days <= 5) {
+        fine = days * 2;
+    }
+
+    else if (days <= 10) {
+        fine = (5 * 2) + ((days - 5) * 3);
+    }
+
+    else if (days <= 20) {
+        fine = (5 * 2) + (5 * 3) + ((days - 10) * 5);
+    }
+
+    else {
+        fine = (5 * 2) + 
+               (5 * 3) + 
+               (10 * 5) + 
+               ((days - 20) * 10);
+    }
+
+    document.getElementById("fine").innerHTML = "₹" + fine;
+
+    document.getElementById("result").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
